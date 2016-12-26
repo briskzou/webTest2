@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+		div{
+			padding: 20px 20px;
+			height: 40px;
+		}
+		#num{
+			background: honeydew;
+			height: 30px;
+		}
+		#canBeNum{
+			background: lightcyan;
+		}
+		#maxNum{
+			background: lavenderblush;
+		}
+		#nan{
+			background: lightcoral;
+		}
+		</style>
+		<script>
+			window.onload=function(){
+			arr=['100px','abc'-6,[],-98765,34,-2,0,'300', ,function(){alert(1);},null,document,[],true,'200px'-30,'23.45元',
+			5,Number('abc'),function(){alert(3);},'xyz'-90]
+			var myArray=document.getElementById('myArray');
+			var num=document.getElementById('num');
+			var canBeNum=document.getElementById('canBeNum');
+			var maxNum=document.getElementById('maxNum');
+			var nan=document.getElementById('nan');
+			myArray.innerHTML+=arr;
+			function showData(showArray,showTag){
+				var text=String(showArray[0]);
+				for(var i=1;i<showArray.length;i++)
+				{
+					text+=' , ';
+					text+=String(showArray[i]);
+				}
+				showTag.innerHTML+=text;
+			}
+			
+			function getRealNum(){
+				var arrNum = new Array();
+				var j=0;
+				for(var i=0;i<arr.length;i++)
+				{
+					var dataType =typeof(arr[i]);
+					if(dataType=='number')
+					{ if(!isNaN(arr[i]))
+						{arrNum[j]=arr[i];
+						j++;}
+					}
+				}
+				//console.dir(arr);
+				//console.dir(arrNum);
+				showData(arrNum,num);
+			}
+			getRealNum();
+			
+			function getCanBeNum(){
+				var arrCanBeNum = new Array();
+				var j=0;
+				for(var i=0;i<arr.length;i++)
+				{ 
+					var numData =parseFloat(arr[i]);
+					if(typeof(numData)=='number')
+					{ 
+						if(!isNaN(numData)){
+							arrCanBeNum[j]=arr[i];
+							j++;}
+					}
+				}
+				console.dir(arrCanBeNum);
+				showData(arrCanBeNum,canBeNum);
+				return(arrCanBeNum);
+			}
+			//getCanBeNum();
+			var numArray=new Array();
+			numArray=getCanBeNum();
+			var arrayData=new Array();
+			for(var i=0;i<numArray.length;i++)
+			{
+				arrayData[i]=parseFloat(numArray[i]);
+			}
+			
+			function getMaxNum(arrayData){
+					var max=arrayData[0];
+					for(var j=1;j<arrayData.length;j++)
+					{
+						if(arrayData[j]>max)
+						{max=arrayData[j];}
+
+					}
+				console.log(max);
+				maxNum.innerHTML+=String(max);
+			}
+			getMaxNum(arrayData);
+			
+			function indexOfNan(){
+				var nanIndexArray = new Array();
+				var j=0;
+				for(var i=0;i<arr.length;i++){
+					if(arr[i] !== arr[i])
+					{
+						nanIndexArray[j]=i;
+						j++;
+					}
+				}
+				console.log(Number(arr[0]));
+				showData(nanIndexArray,nan);
+			}
+			indexOfNan();
+		}
+		</script>
+		
+	</head>
+	<body>
+		<div id="myArray">原始数组：</br></br></div>
+		<div id="num">arr里所有的数字：</br></br></div>
+		<div id="canBeNum">arr中可以转换成数字的：</br></br></div>
+		<div id="maxNum">可转换为数字的最大值：</br></br></div>
+		<div id="nan">NaN所在的位置：</br></br></div>
+	</body>
+</html>
